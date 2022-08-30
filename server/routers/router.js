@@ -1,11 +1,14 @@
-const { Signup, Login, GetallUsers } = require("../controller/UserController");
-
 const express = require("express");
-const { verifyToken } = require("../verifyTokens/Tokens");
 const router = express.Router();
+const { createUser } = require("../controller/UserController");
+const { categoriesRouter } = require("./categoryRoute");
+const { productRoutes } = require("./productRouter");
+const { subcategoryRoutes } = require("./subCategoriesRoute");
 
-router.post("/signup", Signup);
-router.post("/signin", Login);
-router.get("/getusers", verifyToken, GetallUsers);
+router.post("/creates", createUser);
+
+router.use(categoriesRouter);
+router.use(subcategoryRoutes);
+router.use(productRoutes);
 
 module.exports = router;
